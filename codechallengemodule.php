@@ -9,13 +9,12 @@
 if (!defined('_PS_VERSION_'))
     exit;
 
-
 class CodeChallengeModule extends Module
 {
-    public function _construct()
+    public function __construct()
     {
         // Setting up some basic class attributes
-        $this->name = 'CodeChallengeModule';
+        $this->name = 'codechallengemodule';
         $this->tab = 'others';
         $this->version = '1.0';
         $this->author = 'David Varney <davidvarney@gmail.com>';
@@ -24,7 +23,7 @@ class CodeChallengeModule extends Module
         $this->bootstrap = true;
 
         // Initializing the Module _construct() method
-        parent::_construct();
+        parent::__construct();
 
         // Now lets establish our module's text strings
         $this->displayName = $this->l('Code-Challenge-Module');
@@ -37,7 +36,39 @@ class CodeChallengeModule extends Module
 
     public function install()
     {
+        return parent::install() &&
+               $this->installDB() &&
+               $this->registerHook('leftColumn') &&
+               $this->registerHook('header') &&
+               $this->Configuration::updateValue('MYMODULE_NAME', 'Code-Challenge-Module');
+    }
 
+    public function installDB()
+    {
+        $return = true;
+        $return &= Db::getInstance()->execute('
+                CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'code_challenge_module` (
+                `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                `zip_code` VARCHAR(5) DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8 ;'
+        );
+
+        return $return;
+    }
+
+    public function uninstall()
+    {
+        return parent::uninstall() && $this->uninstallDB();
+    }
+
+    public function uninstallDB($drop_table = true)
+    {
+        $ret = true;
+        if($drop_table)
+            $ret &=  Db::getInstance()->execute('DROP TABLE IF EXISTS `'._DB_PREFIX_.'code_challenge_module`');
+
+        return $ret;
     }
 
     public function getContent()
@@ -45,17 +76,17 @@ class CodeChallengeModule extends Module
 
     }
 
-    public function hookLeftColumn()
+    public function hookLeftColumn($params)
     {
 
     }
 
-    public function hookRightColumn()
+    public function hookRightColumn($params)
     {
 
     }
 
-    public function hookHeader()
+    public function hookHeader($params)
     {
 
     }
