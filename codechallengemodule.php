@@ -138,11 +138,12 @@ class CodeChallengeModule extends Module
                 $city_name = strval($weather_json->name);
                 $main_condition = strval($weather_json->weather[0]->main);
             }
+
             // Display smarty
             $this->smarty->assign(array(
                 'title'             => ($title ? $title : $this->l('Code-Challenge-Module')),
                 'image_url'         => $image_url,
-                'current_temp'      => $current_temp,
+                'current_temp'      => round((float)$current_temp, 1),
                 'high_temp'         => $high_temp,
                 'low_temp'          => $low_temp,
                 'humidity'          => $humidity,
@@ -151,6 +152,10 @@ class CodeChallengeModule extends Module
                 'main_condition'    => $main_condition,
             ));
         }
+
+        // Add our CSS file here
+        $this->context->controller->addCSS($this->_path.'css/codechallengemodule.css', 'all');
+
         return $this->display(__FILE__, 'codechallengemodule.tpl', $cacheId);
     }
 

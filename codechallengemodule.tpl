@@ -17,19 +17,21 @@
 *}
 <!-- Code-Challenge-Module module-->
 <div id="codechallengemodule_block_left" class="block">
-    <div class="title_block">
-        <h3>{$title}</h3>
-        {$city_name}
-        <br />
-        <div>
-            <img src="{$image_url}" class="replace-2x img-responsive">
-            <br />
-            <span style="text-align:center;">{$main_condition}</span>
-        </div>
-        <div style="size:large;">{$current_temp}&#8457;</div>
-    </div>
+    <h4 class="title_block">{$title}</h4>
     <div class="block_content list-block">
         <ul>
+            <li class="clearfix">
+                <div class="ccm-city-name">
+                    {$city_name}
+                </div>
+                <div class="ccm-image-block">
+                    <img src="{$image_url}" class="img-responsive ccm-image">
+                </div>
+                <div class="ccm-temp-block">
+                    <span class="ccm-current-temp">{$current_temp}&#8457;</span>
+                </div>
+            </li>
+            <li class="clearfix">Condition: {$main_condition}</li>
             <li class="clearfix">High: {$high_temp}&#8457;</li>
             <li class="clearfix">Low: {$low_temp}&#8457;</li>
             <li class="clearfix">Humidity: {$humidity}&#37;</li>
