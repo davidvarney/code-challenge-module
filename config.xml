@@ -4,7 +4,7 @@
 	<displayName><![CDATA[Code-Challenge-Module]]></displayName>
 	<version><![CDATA[1.0]]></version>
 	<description><![CDATA[Adds a weather widget to the front of our store based on an admin supplied zip code.]]></description>
-	<author><![CDATA[David Varney &lt;davidvarney@gmail.com&gt;]]></author>
+	<author><![CDATA[David Varney - davidvarney@gmail.com]]></author>
 	<tab><![CDATA[others]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall this module?]]></confirmUninstall>
 	<is_configurable>1</is_configurable>

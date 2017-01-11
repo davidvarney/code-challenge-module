@@ -39,10 +39,9 @@ class CodeChallengeModule extends Module
         return parent::install() &&
                $this->installDB() &&
                $this->registerHook('leftColumn') &&
-               $this->registerHook('header') &&
+               $this->registerHook('rightColumn') &&
                Configuration::updateValue('MYMODULE_NAME', 'Code-Challenge-Module') &&
                Configuration::updateValue('WEATHER_API_URL', 'http://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=43f524120ab4bdfdad18443975d734ed') &&
-               //Configuration::updateValue('WEATHER_API_IMAGE_URL', 'http://openweathermap.org/img/w/%s.png');
                Configuration::updateValue('WEATHER_API_IMAGE_URL', 'http://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/%s.png');
     }
 
@@ -158,11 +157,6 @@ class CodeChallengeModule extends Module
     public function hookRightColumn($params)
     {
         return $this->hookLeftColumn($params);
-    }
-
-    public function hookHeader($params)
-    {
-        $this->context->controller->addCSS(($this->_path).'codechallengemodule.css', 'all');
     }
 
     public function renderForm()
