@@ -9,16 +9,23 @@ The weather API used is coming from openweathermap.org
 
 Install Instructions
 --------------------------
+
 ### Part 1
+
 #### via Git Submodule
+
 1. Make your way to the root of you Git project and run the following:
 	<pre>git submodule add git@github.com:davidvarney/code-challenge-module.git <i>path/to/prestashop/modules/folder/here</i>/codechallengemodule</pre>
 2. If you were already on the Modules and Services page then go ahead and refresh the page
+
 #### via Zip File
+
 1. Download the file at the following URL:
 	https://github.com/davidvarney/code-challenge-module
 2. Upload the file within the Admin-->Modules and Services area of Prestashop
+
 ### Part 2
+
 1. Find the module within the "Modules and Services" page. The module should go by the name of Code-Challenge-Module
 2. Click the Install button for our module
 3. Click the "Proceed with the Installation" button displayed in the pop up
