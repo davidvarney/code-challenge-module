@@ -42,7 +42,8 @@ class CodeChallengeModule extends Module
                $this->registerHook('rightColumn') &&
                Configuration::updateValue('MYMODULE_NAME', 'Code-Challenge-Module') &&
                Configuration::updateValue('WEATHER_API_URL', 'http://api.openweathermap.org/data/2.5/weather?zip=%s,us&units=imperial&appid=43f524120ab4bdfdad18443975d734ed') &&
-               Configuration::updateValue('WEATHER_API_IMAGE_URL', 'http://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/%s.png');
+               Configuration::updateValue('WEATHER_API_IMAGE_URL', 'http://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/%s.png') &&
+               Configuration::updateValue('ZIP_CODE_VALIDATOR_URL', 'http://api.zippopotam.us/us/%s');
     }
 
     public function installDB()
@@ -81,8 +82,11 @@ class CodeChallengeModule extends Module
             $errors = array();
             $zip_code_from_form = Tools::getValue('ZIP_CODE');
             $url = sprintf(Configuration::get('WEATHER_API_URL'), $zip_code_from_form);
+            $zip_code_url = sprintf(Configuration::get('ZIP_CODE_VALIDATOR_URL'), $zip_code_from_form);
+            $zip_code_from_api = Tools::jsonDecode(Tools::file_get_contents($zip_code_url));
+            $json_zip_code_label = "post code";
 
-            if (!$zip_code_from_form || empty($zip_code_from_form) || !preg_match('/^[0-9]{5}$/', $zip_code_from_form)) {
+            if (!$zip_code_from_api || !Validate::isZipCodeFormat($zip_code_from_api->$json_zip_code_label)) {
                 $errors[] = $this->l('Invalid zip code');
             } elseif (!Tools::jsonDecode(Tools::file_get_contents($url))) {
                 $errors[] = $this->l('Weather API call returned NULL');
